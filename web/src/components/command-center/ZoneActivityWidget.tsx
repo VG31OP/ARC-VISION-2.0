@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { ReviewSegment } from "@/types/review";
 import { useMemo } from "react";
 import { FaShieldAlt } from "react-icons/fa";
@@ -17,7 +17,7 @@ interface ZoneStatus {
 }
 
 export default function ZoneActivityWidget() {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { data: reviews } = useSWR<ReviewSegment[]>([
     "review",
     { limit: 50 },

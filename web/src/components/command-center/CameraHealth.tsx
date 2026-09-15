@@ -1,5 +1,5 @@
-import { FrigateConfig } from "@/types/frigateConfig";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { ArcVisionStats } from "@/types/stats";
 import useSWR from "swr";
 import { useFrigateStats } from "@/api/ws";
 import { Badge } from "@/components/ui/badge";
@@ -10,8 +10,8 @@ import CameraDetailModal from "@/components/camera/CameraDetailModal";
 import { ReviewSegment } from "@/types/review";
 
 export default function CameraHealth() {
-  const { data: config } = useSWR<FrigateConfig>("config");
-  const { data: initialStats } = useSWR<FrigateStats>("stats");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
+  const { data: initialStats } = useSWR<ArcVisionStats>("stats");
   const liveStats = useFrigateStats();
   const stats = liveStats || initialStats;
 

@@ -23,13 +23,13 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Trans, useTranslation } from "react-i18next";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { CameraNameLabel } from "@/components/camera/FriendlyNameLabel";
 import { isReplayCamera } from "@/utils/cameraUtil";
 
 type EditRoleCamerasOverlayProps = {
   show: boolean;
-  config: FrigateConfig;
+  config: ArcVisionConfig;
   role: string;
   currentCameras: string[];
   onSave: (cameras: string[]) => void;

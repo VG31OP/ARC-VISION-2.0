@@ -3,7 +3,7 @@ import ActivityIndicator from "@/components/indicators/activity-indicator";
 import Heading from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { useAllowedCameras } from "@/hooks/use-allowed-cameras";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { parseCoordinates } from "@/utils/canvasUtil";
 import MasksAndZonesView from "@/views/settings/MasksAndZonesView";
 import { useMemo, useState } from "react";
@@ -20,7 +20,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import CameraDetailModal from "@/components/camera/CameraDetailModal";
 
 export default function SecurityZones() {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const allowedCameras = useAllowedCameras();
 
   const [selectedCamera, setSelectedCamera] = useState<string>("");

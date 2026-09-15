@@ -21,13 +21,17 @@ function set_libva_version() {
     export LIBAVFORMAT_VERSION_MAJOR
 }
 
-echo "[INFO] Preparing Frigate..."
+echo "[INFO] Preparing ARC VISION..."
 set_libva_version
 
-echo "[INFO] Starting Frigate..."
+echo "[INFO] Starting ARC VISION Core Engine..."
 
-cd /opt/frigate || echo "[ERROR] Failed to change working directory to /opt/frigate"
+cd /opt/arcvision 2>/dev/null || cd /opt/frigate || echo "[ERROR] Failed to change working directory"
 
-# Replace the bash process with the Frigate process, redirecting stderr to stdout
+# Replace the bash process with the ARC VISION process, redirecting stderr to stdout
 exec 2>&1
-exec python3 -u -m frigate
+if [ -d "/opt/arcvision/arcvision" ] || python3 -c "import arcvision" 2>/dev/null; then
+    exec python3 -u -m arcvision
+else
+    exec python3 -u -m frigate
+fi

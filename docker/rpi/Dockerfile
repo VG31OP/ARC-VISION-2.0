@@ -13,5 +13,5 @@ RUN --mount=type=bind,source=docker/rpi/install_deps.sh,target=/deps/install_dep
 ENV DEFAULT_FFMPEG_VERSION="rpi"
 ENV INCLUDED_FFMPEG_VERSIONS="${DEFAULT_FFMPEG_VERSION}:${INCLUDED_FFMPEG_VERSIONS}"
 
-WORKDIR /opt/frigate/
+WORKDIR /opt/arcvision/
 COPY --from=rootfs / /

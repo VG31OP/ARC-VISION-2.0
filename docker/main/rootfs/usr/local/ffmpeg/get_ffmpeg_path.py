@@ -1,13 +1,14 @@
 import json
+import os
 import sys
 from typing import Any
 
 from ruamel.yaml import YAML
 
-sys.path.insert(0, "/opt/frigate")
-from frigate.util.config import find_config_file, resolve_ffmpeg_path
+if os.path.isdir("/opt/arcvision") and "/opt/arcvision" not in sys.path:
+    sys.path.insert(0, "/opt/arcvision")
 
-sys.path.remove("/opt/frigate")
+from arcvision.util.config import find_config_file, resolve_ffmpeg_path
 
 yaml = YAML()
 

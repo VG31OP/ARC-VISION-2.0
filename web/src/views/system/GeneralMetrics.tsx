@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { FrigateStats, GpuInfo, GpuStats } from "@/types/stats";
+import { ArcVisionStats, GpuInfo, GpuStats } from "@/types/stats";
 import { startTransition, useEffect, useMemo, useState } from "react";
 import { useFrigateStats } from "@/api/ws";
 import {
@@ -39,7 +39,7 @@ export default function GeneralMetrics({
 
   // stats
 
-  const { data: initialStats, mutate: refreshStats } = useSWR<FrigateStats[]>(
+  const { data: initialStats, mutate: refreshStats } = useSWR<ArcVisionStats[]>(
     [
       "stats/history",
       {
@@ -51,7 +51,7 @@ export default function GeneralMetrics({
     },
   );
 
-  const [statsHistory, setStatsHistory] = useState<FrigateStats[]>([]);
+  const [statsHistory, setStatsHistory] = useState<ArcVisionStats[]>([]);
   const updatedStats = useFrigateStats();
 
   useEffect(() => {

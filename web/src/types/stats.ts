@@ -1,4 +1,4 @@
-export interface FrigateStats {
+export interface ArcVisionStats {
   cameras: { [camera_name: string]: CameraStats };
   cpu_usages: { [pid: string]: CpuStats };
   detectors: { [detectorKey: string]: DetectorStats };
@@ -12,6 +12,8 @@ export interface FrigateStats {
   skipped_fps: number;
   detection_fps: number;
 }
+
+export type FrigateStats = ArcVisionStats;
 
 export type CameraStats = {
   audio_dBFPS: number;

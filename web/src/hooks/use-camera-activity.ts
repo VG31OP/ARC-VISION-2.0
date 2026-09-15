@@ -5,7 +5,7 @@ import {
   useInitialCameraState,
   useMotionActivity,
 } from "@/api/ws";
-import { CameraConfig, FrigateConfig } from "@/types/frigateConfig";
+import { CameraConfig, ArcVisionConfig } from "@/types/arcvisionConfig";
 import { MotionData, ReviewSegment } from "@/types/review";
 import { useEffect, useMemo, useState } from "react";
 import { AudioDetection, ObjectType } from "@/types/ws";
@@ -34,7 +34,7 @@ export function useCameraActivity(
   camera: CameraConfig | undefined,
   revalidateOnFocus: boolean = true,
 ): useCameraActivityReturn {
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
   const attributeLabels = useMemo(() => {

@@ -22,7 +22,7 @@ import ActivityIndicator from "@/components/indicators/activity-indicator";
 import Heading from "@/components/ui/heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { FrigateConfig } from "@/types/frigateConfig";
+import type { ArcVisionConfig } from "@/types/arcvisionConfig";
 import type {
   SectionStatus,
   SettingsPageProps,
@@ -79,7 +79,7 @@ const STATUS_BAR_KEY = "detectors_and_model";
 
 const EMPTY_PENDING: Record<string, ConfigSectionData> = {};
 
-const deriveInitialState = (config: FrigateConfig): PageState => {
+const deriveInitialState = (config: ArcVisionConfig): PageState => {
   const { plus: _plus, ...modelWithoutPlus } = (config.model ?? {}) as Record<
     string,
     unknown
@@ -101,7 +101,7 @@ export default function DetectorsAndModelSettingsView({
 }: SettingsPageProps) {
   const { t } = useTranslation(["views/settings", "common"]);
   const { getLocaleDocUrl } = useDocDomain();
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { mutate: globalMutate } = useSWRConfig();
   const { addMessage, removeMessage } = useContext(StatusBarMessagesContext)!;
 

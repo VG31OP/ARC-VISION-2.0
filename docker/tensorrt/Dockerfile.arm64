@@ -122,8 +122,8 @@ RUN --mount=type=bind,source=docker/tensorrt/build_jetson_ffmpeg.sh,target=/deps
     --mount=type=cache,target=/root/.ccache \
     /deps/build_jetson_ffmpeg.sh
 
-# Frigate w/ TensorRT for NVIDIA Jetson platforms
-FROM tensorrt-base AS frigate-tensorrt
+# ARC VISION w/ TensorRT for NVIDIA Jetson platforms
+FROM tensorrt-base AS arcvision-tensorrt
 RUN apt-get update \
     && apt-get install -y python-is-python3 libprotobuf23  \
     && rm -rf /var/lib/apt/lists/*
@@ -149,7 +149,7 @@ RUN --mount=type=bind,from=trt-wheels,source=/trt-wheels,target=/deps/trt-wheels
     && pip3 install -U /deps/trt-model-wheels/*.whl \
     && ldconfig
 
-WORKDIR /opt/frigate/
+WORKDIR /opt/arcvision/
 COPY --from=rootfs / /
 
 # Fixes "Error importing detector runtime: /usr/lib/aarch64-linux-gnu/libstdc++.so.6: cannot allocate memory in static TLS block"

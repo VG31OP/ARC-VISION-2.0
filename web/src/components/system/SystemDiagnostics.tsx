@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import useSWR from "swr";
-import { FrigateConfig } from "@/types/frigateConfig";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { ArcVisionStats } from "@/types/stats";
 import { useFrigateStats } from "@/api/ws";
 import {
   getSystemOperationalStatus,
@@ -26,8 +26,8 @@ import {
 import { Link } from "react-router-dom";
 
 export default function SystemDiagnostics() {
-  const { data: config } = useSWR<FrigateConfig>("config");
-  const { data: initialStats } = useSWR<FrigateStats>("stats");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
+  const { data: initialStats } = useSWR<ArcVisionStats>("stats");
   const liveStats = useFrigateStats();
   const stats = liveStats || initialStats;
 

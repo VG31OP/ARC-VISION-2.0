@@ -5,9 +5,9 @@ import os
 import cv2
 import numpy as np
 
-from frigate.config import MotionConfig
-from frigate.motion.improved_motion import ImprovedMotionDetector
-from frigate.util import create_mask
+from arcvision.config import MotionConfig
+from arcvision.motion.improved_motion import ImprovedMotionDetector
+from arcvision.util import create_mask
 
 # get info on the video
 # cap = cv2.VideoCapture("debug/front_cam_2023_05_23_08_41__2023_05_23_08_43.mp4")

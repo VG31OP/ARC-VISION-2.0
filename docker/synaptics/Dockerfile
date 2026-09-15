@@ -20,7 +20,7 @@ ARG PIP_BREAK_SYSTEM_PACKAGES
 RUN --mount=type=bind,from=synap1680-wheels,source=/wheels,target=/deps/synap-wheels \
 pip3 install --no-deps -U /deps/synap-wheels/*.whl
 
-WORKDIR /opt/frigate/
+WORKDIR /opt/arcvision/
 COPY --from=rootfs / /
 
 COPY --from=synap1680-wheels /rootfs/usr/local/lib/*.so /usr/lib

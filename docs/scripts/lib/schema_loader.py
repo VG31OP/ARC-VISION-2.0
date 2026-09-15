@@ -5,8 +5,8 @@ from typing import Any
 
 def load_schema() -> dict[str, Any]:
     """Generate and return the full JSON schema for FrigateConfig."""
-    from frigate.config.config import FrigateConfig
-    from frigate.util.schema import get_config_schema
+    from arcvision.config.config import FrigateConfig
+    from arcvision.util.schema import get_config_schema
 
     return get_config_schema(FrigateConfig)
 

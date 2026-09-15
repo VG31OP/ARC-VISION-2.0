@@ -15,7 +15,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import useSWR from "swr";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { useTranslation } from "react-i18next";
 import CameraWizardDialog from "@/components/settings/CameraWizardDialog";
 import DeleteCameraDialog from "@/components/overlay/dialog/DeleteCameraDialog";
@@ -94,7 +94,7 @@ export default function CameraManagementView({
   const { t } = useTranslation(["views/settings", "common"]);
 
   const { data: config, mutate: updateConfig } =
-    useSWR<FrigateConfig>("config");
+    useSWR<ArcVisionConfig>("config");
 
   const [showWizard, setShowWizard] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -724,7 +724,7 @@ function CameraDetailsEditor({
   onConfigChanged,
 }: CameraDetailsEditorProps) {
   const { t } = useTranslation(["views/settings", "common"]);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const [open, setOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -1038,7 +1038,7 @@ function CameraDetailsEditor({
 
 type CameraTypeSectionProps = {
   cameras: string[];
-  config: FrigateConfig | undefined;
+  config: ArcVisionConfig | undefined;
   onConfigChanged: () => Promise<unknown>;
   setRestartDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -1229,7 +1229,7 @@ function CameraTypeSection({
 type ProfileCameraEnableSectionProps = {
   profileState: ProfileState;
   cameras: string[];
-  config: FrigateConfig | undefined;
+  config: ArcVisionConfig | undefined;
   onConfigChanged: () => Promise<unknown>;
 };
 

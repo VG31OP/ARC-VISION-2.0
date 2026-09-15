@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { cn } from "@/lib/utils";
-import { REDACTED_CREDENTIAL_SENTINEL } from "@/lib/const";
+import { isRedactedCredential } from "@/lib/const";
 import { getSizedFieldClassName } from "../utils";
 
 export function PasswordWidget(props: WidgetProps) {
@@ -31,7 +31,7 @@ export function PasswordWidget(props: WidgetProps) {
   // user that a value is already saved. The value stays as the sentinel in
   // form state — backend /config/set strips it so the saved YAML is
   // preserved when the user doesn't touch the field.
-  const isRedacted = value === REDACTED_CREDENTIAL_SENTINEL;
+  const isRedacted = isRedactedCredential(value);
   const displayValue = isRedacted ? "" : (value ?? "");
   const effectivePlaceholder = isRedacted
     ? t("credentialField.savedPlaceholder", {

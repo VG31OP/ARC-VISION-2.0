@@ -302,7 +302,7 @@ ENTRYPOINT ["/init"]
 CMD []
 
 HEALTHCHECK --start-period=300s --start-interval=5s --interval=15s --timeout=5s --retries=3 \
-    CMD test -f /dev/shm/.frigate-is-stopping && exit 0; curl --fail --silent --show-error http://127.0.0.1:5000/api/version || exit 1
+    CMD test -f /dev/shm/.arcvision-is-stopping && exit 0; curl --fail --silent --show-error http://127.0.0.1:5000/api/version || exit 1
 
 # ARC VISION deps with Node.js and NPM for devcontainer
 FROM deps AS devcontainer
@@ -311,9 +311,10 @@ FROM deps AS devcontainer
 # But start a fake service for simulating the logs
 COPY docker/main/fake_frigate_run /etc/s6-overlay/s6-rc.d/frigate/run
 
-# Create symbolic link to the frigate source code, as go2rtc's create_config.sh uses it
-RUN mkdir -p /opt/frigate \
-    && ln -svf /workspace/frigate/frigate /opt/frigate/frigate
+# Create symbolic link to the arcvision source code for devcontainer
+RUN mkdir -p /opt/arcvision \
+    && ln -svf /workspace/arcvision/arcvision /opt/arcvision/arcvision \
+    && ln -sfn /opt/arcvision /opt/frigate
 
 # Install Node 20
 RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh && \
@@ -323,13 +324,13 @@ RUN curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh && \
     && rm -rf /var/lib/apt/lists/* \
     && npm install -g npm@10
 
-WORKDIR /workspace/frigate
+WORKDIR /workspace/arcvision
 
 RUN apt-get update \
     && apt-get install make -y \
     && rm -rf /var/lib/apt/lists/*
 
-RUN --mount=type=bind,source=./docker/main/requirements-dev.txt,target=/workspace/frigate/requirements-dev.txt \
+RUN --mount=type=bind,source=./docker/main/requirements-dev.txt,target=/workspace/arcvision/requirements-dev.txt \
     pip3 install -r requirements-dev.txt
 
 HEALTHCHECK NONE
@@ -353,13 +354,18 @@ RUN npm run build \
 # Collect final files in a single layer
 FROM scratch AS rootfs
 
-WORKDIR /opt/frigate/
+WORKDIR /opt/arcvision/
+COPY arcvision arcvision/
 COPY frigate frigate/
 COPY migrations migrations/
 COPY --from=web-build /work/dist/ web/
 
-# ARC VISION final container
-FROM deps AS frigate
+# Provide /opt/frigate compatibility symlink pointing to /opt/arcvision
+WORKDIR /
+RUN ln -sfn /opt/arcvision /opt/frigate
 
-WORKDIR /opt/frigate/
+# ARC VISION final container
+FROM deps AS arcvision
+
+WORKDIR /opt/arcvision/
 COPY --from=rootfs / /

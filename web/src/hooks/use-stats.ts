@@ -1,10 +1,10 @@
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import {
   CameraDetectThreshold,
   CameraFfmpegThreshold,
   InferenceThreshold,
 } from "@/types/graph";
-import { FrigateStats, PotentialProblem } from "@/types/stats";
+import { ArcVisionStats, PotentialProblem } from "@/types/stats";
 import { useMemo } from "react";
 import useSWR from "swr";
 import useDeepMemo from "./use-deep-memo";
@@ -15,9 +15,9 @@ import { useIsAdmin } from "./use-is-admin";
 
 import { useTranslation } from "react-i18next";
 
-export default function useStats(stats: FrigateStats | undefined) {
+export default function useStats(stats: ArcVisionStats | undefined) {
   const { t } = useTranslation(["views/system"]);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const isAdmin = useIsAdmin();
 
   // Pass isAdmin as revalidateOnFocus so non-admins never send the jobState snapshot pull
@@ -161,7 +161,7 @@ export default function useStats(stats: FrigateStats | undefined) {
 }
 
 export function useAutoFrigateStats() {
-  const { data: initialStats } = useSWR<FrigateStats>("stats", {
+  const { data: initialStats } = useSWR<ArcVisionStats>("stats", {
     revalidateOnFocus: false,
   });
   const latestStats = useFrigateStats();

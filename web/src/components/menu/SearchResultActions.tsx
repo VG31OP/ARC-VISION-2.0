@@ -1,7 +1,7 @@
 import { useState, ReactNode, useCallback } from "react";
 import { SearchResult } from "@/types/search";
 import { REVIEW_PADDING } from "@/types/review";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { baseUrl } from "@/api/baseUrl";
 import { toast } from "sonner";
 import axios from "axios";
@@ -59,7 +59,7 @@ export default function SearchResultActions({
   const navigate = useNavigate();
   const [isStarting, setIsStarting] = useState(false);
 
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 

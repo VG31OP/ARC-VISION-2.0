@@ -4,13 +4,13 @@ from statistics import mean
 
 import numpy as np
 
-from frigate.config import DetectorTypeEnum
-from frigate.object_detection.base import (
+from arcvision.config import DetectorTypeEnum
+from arcvision.object_detection.base import (
     ObjectDetectProcess,
     RemoteObjectDetector,
     load_labels,
 )
-from frigate.util.process import FrigateProcess
+from arcvision.util.process import FrigateProcess
 
 my_frame = np.expand_dims(np.full((300, 300, 3), 1, np.uint8), axis=0)
 labels = load_labels("/labelmap.txt")

@@ -15,7 +15,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useOverlayState } from "@/hooks/use-overlay-state";
 import { useResizeObserver } from "@/hooks/resize-observer";
 import { ExportMode } from "@/types/filter";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { Preview } from "@/types/preview";
 import {
   MotionData,
@@ -111,7 +111,7 @@ export function RecordingView({
   onMotionSearch,
 }: RecordingViewProps) {
   const { t } = useTranslation(["views/events", "components/dialog"]);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const isAdmin = useIsAdmin();
   const navigate = useNavigate();
   const location = useLocation();

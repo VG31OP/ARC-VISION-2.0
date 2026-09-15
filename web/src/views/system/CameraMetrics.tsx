@@ -4,8 +4,8 @@ import CameraInfoDialog from "@/components/overlay/CameraInfoDialog";
 import { ConnectionQualityIndicator } from "@/components/camera/ConnectionQualityIndicator";
 import { EmptyCard } from "@/components/card/EmptyCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FrigateConfig } from "@/types/frigateConfig";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { ArcVisionStats } from "@/types/stats";
 import {
   Fragment,
   startTransition,
@@ -37,7 +37,7 @@ export default function CameraMetrics({
   setLastUpdated,
   isActive,
 }: CameraMetricsProps) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { t } = useTranslation(["views/system"]);
   // camera info dialog
 
@@ -51,7 +51,7 @@ export default function CameraMetrics({
 
   // stats
 
-  const { data: initialStats, mutate: refreshStats } = useSWR<FrigateStats[]>(
+  const { data: initialStats, mutate: refreshStats } = useSWR<ArcVisionStats[]>(
     [
       "stats/history",
       {
@@ -63,7 +63,7 @@ export default function CameraMetrics({
     },
   );
 
-  const [statsHistory, setStatsHistory] = useState<FrigateStats[]>([]);
+  const [statsHistory, setStatsHistory] = useState<ArcVisionStats[]>([]);
   const updatedStats = useFrigateStats();
 
   useEffect(() => {

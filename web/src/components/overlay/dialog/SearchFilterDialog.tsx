@@ -10,7 +10,7 @@ import {
   SearchFilter,
   SearchSource,
 } from "@/types/search";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import {
   Popover,
   PopoverContent,
@@ -39,7 +39,7 @@ import { LuCheck, LuSquareCheck, LuX } from "react-icons/lu";
 import ActivityIndicator from "@/components/indicators/activity-indicator";
 
 type SearchFilterDialogProps = {
-  config?: FrigateConfig;
+  config?: ArcVisionConfig;
   filter?: SearchFilter;
   filterValues: {
     cameras: string[];
@@ -254,7 +254,7 @@ export default function SearchFilterDialog({
 }
 
 type TimeRangeFilterContentProps = {
-  config?: FrigateConfig;
+  config?: ArcVisionConfig;
   timeRange?: string;
   updateTimeRange: (range: string | undefined) => void;
 };
@@ -584,7 +584,7 @@ export function ScoreFilterContent({
 }
 
 type SpeedFilterContentProps = {
-  config?: FrigateConfig;
+  config?: ArcVisionConfig;
   minSpeed: number | undefined;
   maxSpeed: number | undefined;
   setSpeedRange: (min: number | undefined, max: number | undefined) => void;

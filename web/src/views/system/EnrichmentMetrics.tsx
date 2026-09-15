@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionStats } from "@/types/stats";
 import {
   startTransition,
   useCallback,
@@ -28,14 +28,14 @@ export default function EnrichmentMetrics({
   // stats
   const { t } = useTranslation(["views/system"]);
 
-  const { data: initialStats, mutate: refreshStats } = useSWR<FrigateStats[]>(
+  const { data: initialStats, mutate: refreshStats } = useSWR<ArcVisionStats[]>(
     ["stats/history", { keys: "embeddings,service.last_updated" }],
     {
       revalidateOnFocus: false,
     },
   );
 
-  const [statsHistory, setStatsHistory] = useState<FrigateStats[]>([]);
+  const [statsHistory, setStatsHistory] = useState<ArcVisionStats[]>([]);
   const updatedStats = useFrigateStats();
 
   useEffect(() => {

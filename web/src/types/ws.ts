@@ -1,6 +1,6 @@
 import { ReviewSegment } from "./review";
 
-type FrigateObjectState = {
+export type ArcVisionObjectState = {
   id: string;
   camera: string;
   frame_time: number;
@@ -29,17 +29,23 @@ type FrigateObjectState = {
   };
 };
 
-export interface FrigateReview {
+export type FrigateObjectState = ArcVisionObjectState;
+
+export interface ArcVisionReview {
   type: "new" | "update" | "end" | "genai";
   before: ReviewSegment;
   after: ReviewSegment;
 }
 
-export interface FrigateEvent {
+export type FrigateReview = ArcVisionReview;
+
+export interface ArcVisionEvent {
   type: "new" | "update" | "end";
-  before: FrigateObjectState;
-  after: FrigateObjectState;
+  before: ArcVisionObjectState;
+  after: ArcVisionObjectState;
 }
+
+export type FrigateEvent = ArcVisionEvent;
 
 export type ObjectType = {
   id: string;
@@ -57,7 +63,7 @@ export type AudioDetection = {
   score: number;
 };
 
-export interface FrigateCameraState {
+export interface ArcVisionCameraState {
   config: {
     enabled: boolean;
     detect: boolean;
@@ -77,9 +83,14 @@ export interface FrigateCameraState {
   objects: ObjectType[];
   audio_detections: AudioDetection[];
 }
-export interface FrigateAudioDetections {
+
+export type FrigateCameraState = ArcVisionCameraState;
+
+export interface ArcVisionAudioDetections {
   [camera: string]: AudioDetection[];
 }
+
+export type FrigateAudioDetections = ArcVisionAudioDetections;
 
 export type ModelState =
   | "not_downloaded"

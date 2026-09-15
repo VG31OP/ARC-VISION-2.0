@@ -1,5 +1,5 @@
 import { useFormattedTimestamp, useTimeFormat } from "@/hooks/use-date-utils";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
@@ -34,7 +34,7 @@ export function MinimapBounds({
   firstMinimapSegmentRef,
   dense,
 }: MinimapSegmentProps) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { t } = useTranslation(["common"]);
   const timeFormat = useTimeFormat(config);
 
@@ -102,7 +102,7 @@ export function Timestamp({
   segmentKey,
 }: TimestampSegmentProps) {
   const { t } = useTranslation(["common"]);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   const timeFormat = useTimeFormat(config);
   const format = t(`time.formattedTimestampHourMinute.${timeFormat}`);

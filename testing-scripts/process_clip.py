@@ -12,17 +12,17 @@ import numpy as np
 
 sys.path.append("/workspace/frigate")
 
-from frigate.config import FrigateConfig  # noqa: E402
-from frigate.motion import MotionDetector  # noqa: E402
-from frigate.object_detection.base import LocalObjectDetector  # noqa: E402
-from frigate.track.centroid_tracker import CentroidTracker  # noqa: E402
-from frigate.track.object_processing import CameraState  # noqa: E402
-from frigate.util import (  # noqa: E402
+from arcvision.config import FrigateConfig  # noqa: E402
+from arcvision.motion import MotionDetector  # noqa: E402
+from arcvision.object_detection.base import LocalObjectDetector  # noqa: E402
+from arcvision.track.centroid_tracker import CentroidTracker  # noqa: E402
+from arcvision.track.object_processing import CameraState  # noqa: E402
+from arcvision.util import (  # noqa: E402
     EventsPerSecond,
     SharedMemoryFrameManager,
     draw_box_with_label,
 )
-from frigate.video import (  # noqa: E402
+from arcvision.video import (  # noqa: E402
     capture_frames,
     process_frames,
     start_or_restart_ffmpeg,

@@ -11,7 +11,7 @@ import {
 import { use24HourTime } from "@/hooks/use-date-utils";
 import { useTranslation } from "react-i18next";
 import AnnotationOffsetSlider from "@/components/overlay/detail/AnnotationOffsetSlider";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import useSWR from "swr";
 import ActivityIndicator from "../indicators/activity-indicator";
 import { Event } from "@/types/event";
@@ -48,7 +48,7 @@ export default function DetailStream({
   isPlaying = false,
   onSeek,
 }: DetailStreamProps) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { t } = useTranslation("views/events");
   const { annotationOffset, selectedObjectIds, setSelectedObjectIds } =
     useDetailStream();
@@ -358,7 +358,7 @@ export default function DetailStream({
 type ReviewGroupProps = {
   review: ReviewSegment;
   id: string;
-  config: FrigateConfig;
+  config: ArcVisionConfig;
   onSeek: (timestamp: number, play?: boolean) => void;
   isActive?: boolean;
   onActivate?: () => void;
@@ -617,7 +617,7 @@ function EventList({
   annotationOffset,
   onSeek,
 }: EventListProps) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   const { selectedObjectIds, setSelectedObjectIds, toggleObjectSelection } =
     useDetailStream();
@@ -763,7 +763,7 @@ function LifecycleItem({
   isTimelineActive = false,
 }: LifecycleItemProps) {
   const { t } = useTranslation("views/events");
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   const aspectRatio = useMemo(() => {
     if (!config || !item?.camera) {
@@ -995,7 +995,7 @@ function ObjectTimeline({
     },
   ]);
 
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const timeline = useMemo(() => {
     if (!fullTimeline) {
       return fullTimeline;

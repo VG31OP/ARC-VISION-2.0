@@ -49,7 +49,7 @@ import {
 } from "@/utils/dateUtil";
 import { toast } from "sonner";
 import useSWR from "swr";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { use24HourTime } from "@/hooks/use-date-utils";
 import { MdImageSearch } from "react-icons/md";
 import { useTranslation } from "react-i18next";
@@ -78,7 +78,7 @@ export default function InputWithTags({
   allSuggestions,
 }: InputWithTagsProps) {
   const { t, i18n } = useTranslation(["views/search"]);
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
   const is24Hour = use24HourTime(config);

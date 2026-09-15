@@ -140,7 +140,14 @@ function migrate_db_from_media_to_config() {
 
 # remove leftover from last run, not normally needed, but just in case
 # used by the docker healthcheck
-rm -f /dev/shm/.frigate-is-stopping
+rm -f /dev/shm/.frigate-is-stopping /dev/shm/.arcvision-is-stopping
+
+# Ensure bidirectional storage compatibility for /media/arcvision and /media/frigate
+if [[ -d "/media/frigate" && ! -e "/media/arcvision" ]]; then
+    ln -sfn /media/frigate /media/arcvision 2>/dev/null || true
+elif [[ -d "/media/arcvision" && ! -e "/media/frigate" ]]; then
+    ln -sfn /media/arcvision /media/frigate 2>/dev/null || true
+fi
 
 migrate_addon_config_dir
 migrate_db_from_media_to_config

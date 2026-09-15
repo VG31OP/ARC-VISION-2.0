@@ -1,5 +1,5 @@
-import { FrigateConfig } from "@/types/frigateConfig";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { ArcVisionStats } from "@/types/stats";
 
 export type OperationalState =
   | "OPERATIONAL"
@@ -59,8 +59,8 @@ export interface SystemHealthSummary {
 }
 
 export function getSystemOperationalStatus(
-  stats?: FrigateStats,
-  config?: FrigateConfig,
+  stats?: ArcVisionStats,
+  config?: ArcVisionConfig,
   wsConnected: boolean = true,
 ): SystemHealthSummary {
   if (!stats && !config) {

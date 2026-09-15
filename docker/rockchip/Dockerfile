@@ -16,14 +16,14 @@ RUN sed -i '/\[.*\]/d' /requirements-wheels.txt \
 RUN rm -rf /rk-wheels/opencv_python-*
 RUN rm -rf /rk-wheels/torch-*
 
-FROM deps AS rk-frigate
+FROM deps AS rk-arcvision
 ARG TARGETARCH
 ARG PIP_BREAK_SYSTEM_PACKAGES
 
 RUN --mount=type=bind,from=rk-wheels,source=/rk-wheels,target=/deps/rk-wheels \
     pip3 install --no-deps -U /deps/rk-wheels/*.whl
 
-WORKDIR /opt/frigate/
+WORKDIR /opt/arcvision/
 COPY --from=rootfs / /
 COPY docker/rockchip/COCO /COCO
 COPY docker/rockchip/conv2rknn.py /opt/conv2rknn.py

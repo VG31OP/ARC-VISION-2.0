@@ -1,9 +1,9 @@
 import {
   AllGroupsStreamingSettings,
   CameraGroupConfig,
-  FrigateConfig,
+  ArcVisionConfig,
   GroupStreamingSettings,
-} from "@/types/frigateConfig";
+} from "@/types/arcvisionConfig";
 import { isDesktop, isMobile } from "react-device-detect";
 import useSWR from "swr";
 import { MdHome } from "react-icons/md";
@@ -97,7 +97,7 @@ type CameraGroupSelectorProps = {
 
 export function CameraGroupSelector({ className }: CameraGroupSelectorProps) {
   const { t } = useTranslation(["components/camera"]);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const allowedCameras = useAllowedCameras();
   const hasFullCameraAccess = useHasFullCameraAccess();
   const isAdmin = useIsAdmin();
@@ -480,7 +480,7 @@ function NewGroupDialog({
   isAdmin,
 }: NewGroupDialogProps) {
   const { t } = useTranslation(["components/camera"]);
-  const { mutate: updateConfig } = useSWR<FrigateConfig>("config");
+  const { mutate: updateConfig } = useSWR<ArcVisionConfig>("config");
 
   // editing group and state
 
@@ -889,7 +889,7 @@ export function CameraGroupEdit({
 }: CameraGroupEditProps) {
   const { t } = useTranslation(["components/camera"]);
   const { data: config, mutate: updateConfig } =
-    useSWR<FrigateConfig>("config");
+    useSWR<ArcVisionConfig>("config");
 
   const { allGroupsStreamingSettings, setAllGroupsStreamingSettings } =
     useStreamingSettings();

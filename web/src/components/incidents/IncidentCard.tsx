@@ -2,7 +2,7 @@ import { baseUrl } from "@/api/baseUrl";
 import { useFormattedTimestamp, use24HourTime } from "@/hooks/use-date-utils";
 import useImageLoaded from "@/hooks/use-image-loaded";
 import { cn } from "@/lib/utils";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { REVIEW_PADDING, ReviewSegment } from "@/types/review";
 import {
   getIncidentDetectionLabel,
@@ -48,7 +48,7 @@ export default function IncidentCard({
   onOpenDetail,
 }: IncidentCardProps) {
   const { t } = useTranslation(["views/events", "common"]);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const [imgRef, imgLoaded, onImgLoad] = useImageLoaded();
   const is24Hour = use24HourTime(config);
 

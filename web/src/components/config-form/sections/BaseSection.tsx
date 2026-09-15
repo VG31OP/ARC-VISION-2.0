@@ -30,7 +30,7 @@ import { CameraOverridesBadge } from "./CameraOverridesBadge";
 import { GlobalOverridesBadge } from "./GlobalOverridesBadge";
 import { ProfileOverridesBadge } from "./ProfileOverridesBadge";
 import { useSectionSchema } from "@/hooks/use-config-schema";
-import type { FrigateConfig } from "@/types/frigateConfig";
+import type { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { LuChevronDown, LuChevronRight } from "react-icons/lu";
@@ -305,7 +305,7 @@ export function ConfigSection({
 
   // Fetch config
   const { data: config, mutate: refreshConfig } =
-    useSWR<FrigateConfig>("config");
+    useSWR<ArcVisionConfig>("config");
 
   // Get section schema using cached hook
   const sectionSchema = useSectionSchema(sectionPath, effectiveLevel);

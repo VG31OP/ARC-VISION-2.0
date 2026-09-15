@@ -1,4 +1,4 @@
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionStats } from "@/types/stats";
 import { ReviewSegment } from "@/types/review";
 import { evaluateIncidentIntelligence } from "./incidentRules";
 
@@ -204,9 +204,9 @@ export function calculatePeakActivityWindow(reviewItems: ReviewSegment[]): PeakA
 }
 
 /**
- * Extracts system & detector processing health metrics from real FrigateStats.
+ * Extracts system & detector processing health metrics from real ArcVisionStats.
  */
-export function extractSystemProcessingHealth(stats?: FrigateStats): SystemProcessingHealth {
+export function extractSystemProcessingHealth(stats?: ArcVisionStats): SystemProcessingHealth {
   if (!stats) {
     return {
       detectionFps: 0,

@@ -1,10 +1,10 @@
-import type { FrigateConfig, CameraConfig } from "@/types/frigateConfig";
+import type { ArcVisionConfig, CameraConfig } from "@/types/arcvisionConfig";
 import type { ConfigSectionData } from "@/types/configForm";
 import type { SectionConfig } from "../sections/BaseSection";
 
 /** Context provided to message condition functions */
 export type MessageConditionContext = {
-  fullConfig: FrigateConfig;
+  fullConfig: ArcVisionConfig;
   fullCameraConfig?: CameraConfig;
   level: "global" | "camera";
   cameraName?: string;

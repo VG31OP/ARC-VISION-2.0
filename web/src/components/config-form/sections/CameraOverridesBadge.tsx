@@ -15,7 +15,7 @@ import {
   FieldDelta,
   useCamerasOverridingSection,
 } from "@/hooks/use-config-override";
-import type { FrigateConfig } from "@/types/frigateConfig";
+import type { ArcVisionConfig } from "@/types/arcvisionConfig";
 import type { ProfilesApiResponse } from "@/types/profile";
 import { useCameraFriendlyName } from "@/hooks/use-camera-friendly-name";
 import { formatList } from "@/utils/stringUtil";
@@ -180,7 +180,7 @@ type Props = {
 };
 
 export function CameraOverridesBadge({ sectionPath, className }: Props) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { t } = useTranslation(["views/settings"]);
   const rawEntries = useCamerasOverridingSection(config, sectionPath);
 

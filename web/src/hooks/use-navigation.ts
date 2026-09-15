@@ -1,5 +1,5 @@
 import { ENV } from "@/env";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { NavData } from "@/types/navigation";
 import { useMemo } from "react";
 import { isDesktop } from "react-device-detect";
@@ -27,7 +27,7 @@ export const ID_CHAT = 11;
 export default function useNavigation(
   variant: "primary" | "secondary" = "primary",
 ) {
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
   const isAdmin = useIsAdmin();

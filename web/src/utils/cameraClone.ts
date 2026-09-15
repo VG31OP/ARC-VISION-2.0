@@ -16,7 +16,7 @@ import {
 } from "@/utils/configUtil";
 import { applySchemaDefaults } from "@/lib/config-schema";
 import type { SaveAllPreviewItem } from "@/components/overlay/detail/SaveAllPreviewPopover";
-import type { CameraConfig, FrigateConfig } from "@/types/frigateConfig";
+import type { CameraConfig, ArcVisionConfig } from "@/types/arcvisionConfig";
 import type {
   ConfigSectionData,
   JsonObject,
@@ -63,7 +63,7 @@ function stripAutoDefaultFilters(
   section: string,
   sourceSection: JsonObject,
   fullSchema: RJSFSchema,
-  fullConfig: FrigateConfig,
+  fullConfig: ArcVisionConfig,
   fullCameraConfig: CameraConfig,
 ): JsonObject {
   const def = FILTER_SECTION_DEFS[section];
@@ -459,7 +459,7 @@ type BuildClonedPayloadsArgs = {
   targetInput: string;
   targetIsNew: boolean;
   selectedKeys: Set<CloneCategoryKey>;
-  fullConfig: FrigateConfig;
+  fullConfig: ArcVisionConfig;
   fullSchema: RJSFSchema;
   rawPaths?: RawCameraPaths;
 };
@@ -593,10 +593,10 @@ export function buildClonedCameraPayloads({
             cloneDeep((fullConfig as unknown as JsonObject)[s]),
           ]).filter(([, value]) => value !== undefined && value !== null),
         ),
-      } as unknown as FrigateConfig["cameras"][string])
+      } as unknown as ArcVisionConfig["cameras"][string])
     : ((fullConfig.cameras?.[target]
         ? cloneDeep(fullConfig.cameras[target])
-        : { enabled: true }) as unknown as FrigateConfig["cameras"][string]);
+        : { enabled: true }) as unknown as ArcVisionConfig["cameras"][string]);
 
   // Strip auto-default filters from the baseline (matching the per-section
   // source strip) so default-only entries cancel. Includes `base_config` (the
@@ -645,7 +645,7 @@ export function buildClonedCameraPayloads({
     }
   }
 
-  const syntheticConfig: FrigateConfig = {
+  const syntheticConfig: ArcVisionConfig = {
     ...fullConfig,
     cameras: {
       ...fullConfig.cameras,

@@ -11,7 +11,7 @@ import isEqual from "lodash/isEqual";
 import mergeWith from "lodash/mergeWith";
 import set from "lodash/set";
 import { isJsonObject } from "@/lib/utils";
-import { REDACTED_CREDENTIAL_SENTINEL } from "@/lib/const";
+import { isRedactedCredential } from "@/lib/const";
 import { applySchemaDefaults } from "@/lib/config-schema";
 import { normalizeConfigValue } from "@/hooks/use-config-override";
 import {
@@ -20,7 +20,7 @@ import {
   sanitizeOverridesForSection,
 } from "@/components/config-form/sections/section-special-cases";
 import type { RJSFSchema } from "@rjsf/utils";
-import type { CameraConfig, FrigateConfig } from "@/types/frigateConfig";
+import type { CameraConfig, ArcVisionConfig } from "@/types/arcvisionConfig";
 import type {
   ConfigSectionData,
   HiddenFieldContext,
@@ -31,7 +31,7 @@ import type { SectionConfig } from "../components/config-form/sections/BaseSecti
 import { sectionConfigs } from "../components/config-form/sectionConfigs";
 
 /**
- * Recursively strip any key whose value is the redaction sentinel from a
+ * Recursively strip any key whose value is a redaction sentinel from a
  * config_data payload. Use just before sending to /config/set so untouched
  * credential placeholder fields don't clobber the saved YAML value. Mutates
  * and returns the input.
@@ -47,7 +47,7 @@ export function stripRedactedCredentials<T>(value: T): T {
     const obj = value as Record<string, unknown>;
     for (const key of Object.keys(obj)) {
       const v = obj[key];
-      if (v === REDACTED_CREDENTIAL_SENTINEL) {
+      if (isRedactedCredential(v)) {
         delete obj[key];
       } else if (v && typeof v === "object") {
         stripRedactedCredentials(v);
@@ -110,7 +110,7 @@ export const globalCameraDefaultSections = new Set([
  * back to the top-level (effective) value otherwise.
  */
 export function getBaseCameraSectionValue(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   cameraName: string | undefined,
   sectionPath: string,
 ): unknown {
@@ -566,7 +566,7 @@ function extractSectionSchema(
 export function prepareSectionSavePayload(opts: {
   pendingDataKey: string;
   pendingData: unknown;
-  config: FrigateConfig;
+  config: ArcVisionConfig;
   fullSchema: RJSFSchema;
 }): SectionSavePayload | null {
   const { pendingDataKey, pendingData, config, fullSchema } = opts;
@@ -792,7 +792,7 @@ export function getSectionConfig(
  * scope and for non-LPR cameras.
  */
 export function getEffectiveAttributeLabels(
-  fullConfig: FrigateConfig | undefined,
+  fullConfig: ArcVisionConfig | undefined,
   fullCameraConfig: CameraConfig | undefined,
   level: "global" | "camera" | "replay" | undefined,
 ): string[] {
@@ -811,7 +811,7 @@ export function getEffectiveAttributeLabels(
  * `fullConfig`.
  */
 export function buildHiddenFieldContext(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   level: "global" | "camera" | "replay",
   cameraName?: string,
 ): HiddenFieldContext | undefined {

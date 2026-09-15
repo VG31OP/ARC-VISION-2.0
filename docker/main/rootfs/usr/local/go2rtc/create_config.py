@@ -8,31 +8,42 @@ from typing import Any
 
 from ruamel.yaml import YAML
 
-sys.path.insert(0, "/opt/frigate")
-from frigate.config.env import substitute_frigate_vars
-from frigate.const import (
+if os.path.isdir("/opt/arcvision") and "/opt/arcvision" not in sys.path:
+    sys.path.insert(0, "/opt/arcvision")
+
+from arcvision.config.env import substitute_frigate_vars
+from arcvision.const import (
     BIRDSEYE_PIPE,
     LIBAVFORMAT_VERSION_MAJOR,
 )
-from frigate.ffmpeg_presets import parse_preset_hardware_acceleration_encode
-from frigate.util.config import find_config_file, resolve_ffmpeg_path
-from frigate.util.services import (
+from arcvision.ffmpeg_presets import parse_preset_hardware_acceleration_encode
+from arcvision.util.config import find_config_file, resolve_ffmpeg_path
+from arcvision.util.services import (
     is_go2rtc_arbitrary_exec_allowed,
     is_restricted_go2rtc_source,
 )
 
-sys.path.remove("/opt/frigate")
-
 yaml = YAML()
 
-FRIGATE_ENV_VARS = {k: v for k, v in os.environ.items() if k.startswith("FRIGATE_")}
+ARC_VISION_ENV_VARS = {
+    k: v for k, v in os.environ.items() if k.startswith(("ARC_VISION_", "FRIGATE_"))
+}
 # read docker secret files as env vars too
 if os.path.isdir("/run/secrets"):
     for secret_file in os.listdir("/run/secrets"):
-        if secret_file.startswith("FRIGATE_"):
-            FRIGATE_ENV_VARS[secret_file] = (
+        if secret_file.startswith(("ARC_VISION_", "FRIGATE_")):
+            ARC_VISION_ENV_VARS[secret_file] = (
                 Path(os.path.join("/run/secrets", secret_file)).read_text().strip()
             )
+
+# Ensure aliases in dict so {ARC_VISION_VAR} or {FRIGATE_VAR} both resolve
+for k, v in list(ARC_VISION_ENV_VARS.items()):
+    if k.startswith("ARC_VISION_"):
+        ARC_VISION_ENV_VARS.setdefault("FRIGATE_" + k[len("ARC_VISION_"):], v)
+    elif k.startswith("FRIGATE_"):
+        ARC_VISION_ENV_VARS.setdefault("ARC_VISION_" + k[len("FRIGATE_"):], v)
+
+FRIGATE_ENV_VARS = ARC_VISION_ENV_VARS
 
 config_file = find_config_file()
 

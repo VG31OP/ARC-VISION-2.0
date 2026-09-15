@@ -10,7 +10,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useAutoFrigateStats } from "@/hooks/use-stats";
 import { cn } from "@/lib/utils";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { ReviewSegment } from "@/types/review";
 import {
   getIncidentDetectionLabel,
@@ -60,7 +60,7 @@ export default function CameraDetailModal({
   onSelectIncident,
 }: CameraDetailModalProps) {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const stats = useAutoFrigateStats();
 
   const cameraConfig = cameraName && config?.cameras ? config.cameras[cameraName] : null;

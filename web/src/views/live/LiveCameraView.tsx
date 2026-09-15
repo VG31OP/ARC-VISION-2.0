@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/popover";
 import { useResizeObserver } from "@/hooks/resize-observer";
 import useKeyboardListener from "@/hooks/use-keyboard-listener";
-import { CameraConfig, FrigateConfig } from "@/types/frigateConfig";
+import { CameraConfig, ArcVisionConfig } from "@/types/arcvisionConfig";
 import {
   LivePlayerError,
   LiveStreamMetadata,
@@ -129,7 +129,7 @@ import type { KonvaEventObject } from "konva/lib/Node";
 const DRAG_MIN_PX = 15;
 
 type LiveCameraViewProps = {
-  config?: FrigateConfig;
+  config?: ArcVisionConfig;
   camera: CameraConfig;
   supportsFullscreen: boolean;
   fullscreen: boolean;

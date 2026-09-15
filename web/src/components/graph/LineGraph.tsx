@@ -1,6 +1,6 @@
 import { useTheme } from "@/context/theme-provider";
 import { useDateLocale } from "@/hooks/use-date-locale";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { formatUnixTimestampToDateTime } from "@/utils/dateUtil";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import Chart from "react-apexcharts";
@@ -29,7 +29,7 @@ export function CameraLineGraph({
   isActive = true,
 }: CameraLineGraphProps) {
   const { t } = useTranslation(["views/system", "common"]);
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
 
@@ -196,7 +196,7 @@ export function EventsPerSecondsLineGraph({
   data,
   isActive = true,
 }: EventsPerSecondLineGraphProps) {
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
 

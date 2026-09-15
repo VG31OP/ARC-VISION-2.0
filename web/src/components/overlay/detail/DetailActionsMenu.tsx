@@ -17,12 +17,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { SearchResult } from "@/types/search";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { useIsAdmin } from "@/hooks/use-is-admin";
 
 type Props = {
   search: SearchResult | Event;
-  config?: FrigateConfig;
+  config?: ArcVisionConfig;
   setSearch?: (s: SearchResult | undefined) => void;
   setSimilarity?: () => void;
   faceNames?: string[];

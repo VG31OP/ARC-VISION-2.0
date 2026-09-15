@@ -82,31 +82,32 @@ export function ThemeProvider({
   children,
   defaultTheme = "system",
   defaultColorScheme = "theme-default",
-  storageKey = "frigate-ui-theme",
+  storageKey = "arcvision-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
+  const getStoredData = (): { theme?: Theme; colorScheme?: string } => {
     try {
-      const storedData = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      return storedData.theme || defaultTheme;
+      const raw =
+        localStorage.getItem(storageKey) ||
+        localStorage.getItem("frigate-ui-theme");
+      return JSON.parse(raw || "{}");
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Error parsing theme data from storage:", error);
-      return defaultTheme;
+      return {};
     }
+  };
+
+  const [theme, setTheme] = useState<Theme>(() => {
+    const storedData = getStoredData();
+    return storedData.theme || defaultTheme;
   });
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>(() => {
-    try {
-      const storedData = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      return storedData.colorScheme === "default"
-        ? defaultColorScheme
-        : storedData.colorScheme || defaultColorScheme;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error("Error parsing color scheme data from storage:", error);
-      return defaultColorScheme;
-    }
+    const storedData = getStoredData();
+    return storedData.colorScheme === "default"
+      ? defaultColorScheme
+      : (storedData.colorScheme as ColorScheme) || defaultColorScheme;
   });
 
   const [systemPrefersDark, setSystemPrefersDark] = useState(

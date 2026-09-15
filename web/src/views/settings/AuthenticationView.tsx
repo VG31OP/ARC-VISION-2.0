@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ActivityIndicator from "@/components/indicators/activity-indicator";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import useSWR from "swr";
 import Heading from "@/components/ui/heading";
 import { User } from "@/types/user";
@@ -46,7 +46,7 @@ export default function AuthenticationView({
 }: AuthenticationViewProps) {
   const { t } = useTranslation("views/settings");
   const { data: config, mutate: updateConfig } =
-    useSWR<FrigateConfig>("config");
+    useSWR<ArcVisionConfig>("config");
   const { data: users, mutate: mutateUsers } = useSWR<User[]>("users");
 
   const [showSetPassword, setShowSetPassword] = useState(false);

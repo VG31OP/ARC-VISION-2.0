@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import useSWR from "swr";
-import { FrigateConfig } from "@/types/frigateConfig";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { ArcVisionStats } from "@/types/stats";
 import { useFrigateStats, useFrigateReviews } from "@/api/ws";
 import { getSystemOperationalStatus } from "@/utils/systemStatus";
 import OperationsOverview from "@/components/command-center/OperationsOverview";
@@ -16,8 +16,8 @@ import { useAllowedCameras } from "@/hooks/use-allowed-cameras";
 import { Badge } from "@/components/ui/badge";
 import { BRAND } from "@/config/branding";
 export default function CommandCenter() {
-  const { data: config } = useSWR<FrigateConfig>("config");
-  const { data: initialStats } = useSWR<FrigateStats>("stats");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
+  const { data: initialStats } = useSWR<ArcVisionStats>("stats");
   const liveStats = useFrigateStats();
   const stats = liveStats || initialStats;
   useFrigateReviews();

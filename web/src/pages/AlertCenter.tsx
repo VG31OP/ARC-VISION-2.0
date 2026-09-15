@@ -5,7 +5,7 @@ import Heading from "@/components/ui/heading";
 import { useAllowedCameras } from "@/hooks/use-allowed-cameras";
 import { useFormattedTimestamp } from "@/hooks/use-date-utils";
 import { cn } from "@/lib/utils";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { ReviewSegment } from "@/types/review";
 import { generateSecurityAlerts } from "@/utils/intelligence/alertRules";
 import { getPriorityStyle } from "@/utils/intelligence/incidentRules";
@@ -30,7 +30,7 @@ import useSWR from "swr";
 import { baseUrl } from "@/api/baseUrl";
 
 export default function AlertCenter() {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const allowedCameras = useAllowedCameras();
   const liveReview = useFrigateReviews();
 

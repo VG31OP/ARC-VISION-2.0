@@ -12,7 +12,7 @@ import { cn } from "./lib/utils";
 import { isPWA } from "./utils/isPWA";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import useSWR from "swr";
-import { FrigateConfig } from "./types/frigateConfig";
+import { ArcVisionConfig } from "./types/arcvisionConfig";
 import ActivityIndicator from "@/components/indicators/activity-indicator";
 import { isRedirectingToLogin } from "@/api/auth-redirect";
 
@@ -38,7 +38,7 @@ const AccessDenied = lazy(() => import("@/pages/AccessDenied"));
 const Replay = lazy(() => import("@/pages/Replay"));
 
 function App() {
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
 
@@ -54,7 +54,7 @@ function App() {
 }
 
 function DefaultAppView() {
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
 

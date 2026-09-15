@@ -18,8 +18,8 @@ import { useUserPersistence } from "@/hooks/use-user-persistence";
 import {
   AllGroupsStreamingSettings,
   CameraConfig,
-  FrigateConfig,
-} from "@/types/frigateConfig";
+  ArcVisionConfig,
+} from "@/types/arcvisionConfig";
 import { ReviewSegment } from "@/types/review";
 import {
   useCallback,
@@ -75,7 +75,7 @@ export default function LiveDashboardView({
 }: LiveDashboardViewProps) {
   const { t } = useTranslation(["views/live"]);
 
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   // layout
 

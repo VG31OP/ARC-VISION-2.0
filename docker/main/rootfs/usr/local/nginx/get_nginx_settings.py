@@ -7,10 +7,10 @@ from typing import Any
 
 from ruamel.yaml import YAML
 
-sys.path.insert(0, "/opt/frigate")
-from frigate.util.config import find_config_file
+if os.path.isdir("/opt/arcvision") and "/opt/arcvision" not in sys.path:
+    sys.path.insert(0, "/opt/arcvision")
 
-sys.path.remove("/opt/frigate")
+from arcvision.util.config import find_config_file
 
 yaml = YAML()
 
@@ -50,7 +50,7 @@ if type(external_port) is str:
     external_port = int(external_port.split(":")[-1])
 listen_config["external_port"] = external_port
 
-base_path = os.environ.get("FRIGATE_BASE_PATH", "")
+base_path = os.environ.get("ARC_VISION_BASE_PATH", os.environ.get("FRIGATE_BASE_PATH", ""))
 
 result: dict[str, Any] = {
     "tls": tls_config,

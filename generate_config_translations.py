@@ -12,8 +12,8 @@ import sys
 from pathlib import Path
 from typing import Any, get_args, get_origin
 
-from frigate.config.config import FrigateConfig
-from frigate.util.schema import get_config_schema
+from arcvision.config.config import FrigateConfig
+from arcvision.util.schema import get_config_schema
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -534,7 +534,7 @@ def main():
     }
 
     # Import CameraConfig to extract field metadata
-    from frigate.config.camera.camera import CameraConfig
+    from arcvision.config.camera.camera import CameraConfig
 
     camera_config_schema = CameraConfig.model_json_schema()
     camera_properties = camera_config_schema.get("properties", {})
@@ -605,7 +605,7 @@ def main():
         if "camera_config_schema" in locals():
             camera_schema = camera_config_schema
         else:
-            from frigate.config.camera.camera import CameraConfig
+            from arcvision.config.camera.camera import CameraConfig
 
             camera_schema = CameraConfig.model_json_schema()
 

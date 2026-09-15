@@ -42,7 +42,7 @@ RUN echo "deb http://deb.debian.org/debian trixie main" > /etc/apt/sources.list.
     rm -f /etc/apt/sources.list.d/trixie.list && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /opt/frigate
+WORKDIR /opt/arcvision
 COPY --from=rootfs / /
 
 RUN wget -q https://bootstrap.pypa.io/get-pip.py -O get-pip.py \

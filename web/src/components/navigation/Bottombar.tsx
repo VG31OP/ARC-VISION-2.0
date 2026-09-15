@@ -2,7 +2,7 @@ import NavItem from "./NavItem";
 import { IoIosWarning } from "react-icons/io";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import useSWR from "swr";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionStats } from "@/types/stats";
 import { useEmbeddingsReindexProgress, useFrigateStats } from "@/api/ws";
 import {
   useContext,
@@ -98,7 +98,7 @@ type StatusAlertNavProps = {
 };
 function StatusAlertNav({ className, large }: StatusAlertNavProps) {
   const { t } = useTranslation(["views/system"]);
-  const { data: initialStats } = useSWR<FrigateStats>("stats", {
+  const { data: initialStats } = useSWR<ArcVisionStats>("stats", {
     revalidateOnFocus: false,
   });
   const latestStats = useFrigateStats();

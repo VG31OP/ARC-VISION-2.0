@@ -36,7 +36,9 @@ services:
       - ./config:/config
       
       # Storage directory for video evidence, clips, snapshots, and exports
-      - ./storage:/media/frigate
+      # Note: /media/arcvision is the canonical path. Legacy /media/frigate is
+      # symlinked automatically inside the container for backward compatibility.
+      - ./storage:/media/arcvision
       
       # Optional: In-memory tmpfs cache to reduce SSD write wear (1GB allocated)
       - type: tmpfs
@@ -59,6 +61,7 @@ services:
     # --------------------------------------------------------------------------
     environment:
       # Default camera password for RTSP stream authentication
+      # Both ARC_VISION_RTSP_PASSWORD and FRIGATE_RTSP_PASSWORD are accepted.
       FRIGATE_RTSP_PASSWORD: "your_secure_camera_password"
       
       # Timezone configuration (e.g. "UTC", "America/New_York", "Asia/Kolkata")

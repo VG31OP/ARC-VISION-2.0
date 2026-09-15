@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import useSWR from "swr";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DropdownMenuSeparator } from "../ui/dropdown-menu";
 import {
@@ -73,7 +73,7 @@ export default function ReviewFilterGroup({
   onUpdateFilter,
   setMotionOnly,
 }: ReviewFilterGroupProps) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const allowedCameras = useAllowedCameras();
 
   const allLabels = useMemo<string[]>(() => {
@@ -462,7 +462,7 @@ export function GeneralFilterContent({
   contentClassName,
 }: GeneralFilterContentProps) {
   const { t } = useTranslation(["components/filter", "views/events"]);
-  const { data: config } = useSWR<FrigateConfig>("config", {
+  const { data: config } = useSWR<ArcVisionConfig>("config", {
     revalidateOnFocus: false,
   });
   const allAudioListenLabels = useMemo<string[]>(() => {

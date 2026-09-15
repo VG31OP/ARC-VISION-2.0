@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { ReviewSegment } from "@/types/review";
 import {
   calculateIncidentCounts,
@@ -39,7 +39,7 @@ export default function IncidentReviewWorkspace({
   onSelectIncident,
   onRefresh,
 }: IncidentReviewWorkspaceProps) {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   // Local state for filters
   const [searchQuery, setSearchQuery] = useState("");

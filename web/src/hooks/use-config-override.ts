@@ -6,7 +6,7 @@ import isEqual from "lodash/isEqual";
 import get from "lodash/get";
 import set from "lodash/set";
 import type { RJSFSchema } from "@rjsf/utils";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { JsonObject, JsonValue } from "@/types/configForm";
 import { isJsonObject } from "@/lib/utils";
 import {
@@ -245,7 +245,7 @@ export interface OverrideStatus {
 
 export interface UseConfigOverrideOptions {
   /** Full ARC VISION config */
-  config: FrigateConfig | undefined;
+  config: ArcVisionConfig | undefined;
   /** Camera name for per-camera settings */
   cameraName?: string;
   /** Config section path (e.g., "detect", "record.events") */
@@ -505,7 +505,7 @@ export const OVERRIDABLE_SECTIONS: ReadonlyArray<{
  * Hook to get all overridden fields for a camera
  */
 export function useAllCameraOverrides(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   cameraName: string | undefined,
 ) {
   const { data: schema } = useSWR<RJSFSchema>("config/schema.json");
@@ -684,7 +684,7 @@ function isPathAllowed(path: string, compareFields?: string[]): boolean {
  *   hasn't loaded yet or the section isn't in it.
  */
 function getEffectiveGlobalBaseline(
-  config: FrigateConfig,
+  config: ArcVisionConfig,
   sectionPath: string,
   compareFields?: string[],
   schema?: RJSFSchema,
@@ -774,7 +774,7 @@ function isCrossCameraIgnoredPath(path: string): boolean {
  * ```
  */
 export function useCamerasOverridingSection(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   sectionPath: string,
 ): CameraOverrideEntry[] {
   const { data: schema } = useSWR<RJSFSchema>("config/schema.json");
@@ -879,7 +879,7 @@ export function useCamerasOverridingSection(
  * ```
  */
 export function useCameraSectionDeltas(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   cameraName: string | undefined,
   sectionPath: string,
 ): FieldDelta[] {
@@ -951,7 +951,7 @@ export function useCameraSectionDeltas(
  * ```
  */
 export function useProfileSectionDeltas(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   cameraName: string | undefined,
   profileName: string | undefined,
   sectionPath: string,

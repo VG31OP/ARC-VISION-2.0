@@ -1,9 +1,9 @@
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { useMemo } from "react";
 import useSWR from "swr";
 
 export function resolveZoneName(
-  config: FrigateConfig | undefined,
+  config: ArcVisionConfig | undefined,
   zoneId: string,
   cameraId?: string,
 ) {
@@ -30,7 +30,7 @@ export function resolveZoneName(
 }
 
 export function useZoneFriendlyName(zoneId: string, cameraId?: string): string {
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
 
   const name = useMemo(
     () => resolveZoneName(config, zoneId, cameraId),

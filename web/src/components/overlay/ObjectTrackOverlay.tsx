@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from "react";
 import { TrackingDetailsSequence, LifecycleClassType } from "@/types/timeline";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import useSWR from "swr";
 import { useDetailStream } from "@/context/detail-stream-context";
 import {
@@ -55,7 +55,7 @@ export default function ObjectTrackOverlay({
   onSeekToTime,
 }: ObjectTrackOverlayProps) {
   const { t } = useTranslation("views/events");
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { annotationOffset, selectedObjectIds } = useDetailStream();
 
   const effectiveCurrentTime = currentTime - annotationOffset / 1000;
@@ -129,7 +129,7 @@ export default function ObjectTrackOverlay({
 
   const getZonesFriendlyNames = (
     zones: string[],
-    config: FrigateConfig,
+    config: ArcVisionConfig,
     cameraId?: string,
   ) => {
     return zones?.map((zone) => resolveZoneName(config, zone, cameraId)) ?? [];

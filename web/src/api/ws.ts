@@ -8,17 +8,17 @@ import {
 } from "react";
 import {
   EmbeddingsReindexProgressType,
-  FrigateCameraState,
-  FrigateEvent,
-  FrigateReview,
+  ArcVisionCameraState,
+  ArcVisionEvent,
+  ArcVisionReview,
   ModelState,
   ToggleableSetting,
   TrackedObjectUpdateReturnType,
   TriggerStatus,
-  FrigateAudioDetections,
+  ArcVisionAudioDetections,
   Job,
 } from "@/types/ws";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionStats } from "@/types/stats";
 import { isEqual } from "lodash";
 import { WsSendContext } from "./wsContext";
 import type { Update, WsSend } from "./wsContext";
@@ -158,7 +158,7 @@ function applyCameraActivity(payload: string) {
   if (payload === lastCameraActivityPayload) return;
   lastCameraActivityPayload = payload;
 
-  let activity: { [key: string]: Partial<FrigateCameraState> };
+  let activity: { [key: string]: Partial<ArcVisionCameraState> };
 
   try {
     activity = JSON.parse(payload);
@@ -475,7 +475,7 @@ export function useRestart(): {
   return { payload: payload as string, send };
 }
 
-export function useFrigateEvents(): { payload: FrigateEvent } {
+export function useFrigateEvents(): { payload: ArcVisionEvent } {
   const {
     value: { payload },
   } = useWs("events", "");
@@ -486,7 +486,7 @@ export function useFrigateEvents(): { payload: FrigateEvent } {
   return { payload: parsed };
 }
 
-export function useAudioDetections(): { payload: FrigateAudioDetections } {
+export function useAudioDetections(): { payload: ArcVisionAudioDetections } {
   const {
     value: { payload },
   } = useWs("audio_detections", "");
@@ -497,7 +497,7 @@ export function useAudioDetections(): { payload: FrigateAudioDetections } {
   return { payload: parsed };
 }
 
-export function useFrigateReviews(): FrigateReview {
+export function useArcVisionReviews(): ArcVisionReview {
   const {
     value: { payload },
   } = useWs("reviews", "");
@@ -507,7 +507,9 @@ export function useFrigateReviews(): FrigateReview {
   );
 }
 
-export function useFrigateStats(): FrigateStats {
+export const useFrigateReviews = useArcVisionReviews;
+
+export function useArcVisionStats(): ArcVisionStats {
   const {
     value: { payload },
   } = useWs("stats", "");
@@ -517,11 +519,13 @@ export function useFrigateStats(): FrigateStats {
   );
 }
 
+export const useFrigateStats = useArcVisionStats;
+
 export function useInitialCameraState(
   camera: string,
   revalidateOnFocus: boolean,
 ): {
-  payload: FrigateCameraState;
+  payload: ArcVisionCameraState;
 } {
   const {
     value: { payload },
@@ -529,7 +533,7 @@ export function useInitialCameraState(
   } = useWs(`camera_activity/${camera}`, "onConnect");
 
   // camera_activity sub-topic payload is already parsed by expandCameraActivity
-  const data = payload as FrigateCameraState | undefined;
+  const data = payload as ArcVisionCameraState | undefined;
 
   // the cached snapshot is only written on onConnect and can be stale by the
   // time this hook mounts — re-request on mount and when the user tabs back in
@@ -551,7 +555,7 @@ export function useInitialCameraState(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revalidateOnFocus]);
 
-  return { payload: data as FrigateCameraState };
+  return { payload: data as ArcVisionCameraState };
 }
 
 export function useModelState(

@@ -1,14 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { FrigateConfig } from "@/types/frigateConfig";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { ArcVisionStats } from "@/types/stats";
 import { LuCamera, LuShieldAlert, LuCpu, LuDisc } from "react-icons/lu";
 import useSWR from "swr";
 import { useFrigateStats } from "@/api/ws";
 import { ReviewSegment } from "@/types/review";
 
 export default function OperationsOverview() {
-  const { data: config } = useSWR<FrigateConfig>("config");
-  const { data: initialStats } = useSWR<FrigateStats>("stats");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
+  const { data: initialStats } = useSWR<ArcVisionStats>("stats");
   const liveStats = useFrigateStats();
   const stats = liveStats || initialStats;
 

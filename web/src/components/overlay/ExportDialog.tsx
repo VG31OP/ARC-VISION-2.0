@@ -59,7 +59,7 @@ import { GenericVideoPlayer } from "../player/GenericVideoPlayer";
 import { useTranslation } from "react-i18next";
 import { CustomTimeSelector } from "./CustomTimeSelector";
 import { Event } from "@/types/event";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { resolveCameraName } from "@/hooks/use-camera-friendly-name";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Textarea } from "../ui/textarea";
@@ -428,7 +428,7 @@ export function ExportContent({
   const isAdmin = useIsAdmin();
   const [selectedOption, setSelectedOption] = useState<ExportOption>("1");
   const { data: cases } = useSWR<ExportCase[]>(isAdmin ? "cases" : null);
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const [debouncedRange, setDebouncedRange] = useState<TimeRange | undefined>(
     range,
   );

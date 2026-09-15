@@ -32,7 +32,7 @@ import {
 import useOptimisticState from "@/hooks/use-optimistic-state";
 import { isMobile } from "react-device-detect";
 import { FaVideo } from "react-icons/fa";
-import { CameraConfig, FrigateConfig } from "@/types/frigateConfig";
+import { CameraConfig, ArcVisionConfig } from "@/types/arcvisionConfig";
 import type { ConfigSectionData, JsonObject } from "@/types/configForm";
 import isEqual from "lodash/isEqual";
 import { maskCredentials } from "@/utils/credentialMask";
@@ -647,7 +647,7 @@ export default function Settings() {
     });
   }, [pageToggle]);
 
-  const { data: config } = useSWR<FrigateConfig>("config");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
   const { data: profilesData } = useSWR<ProfilesApiResponse>("profiles");
 
   const [searchParams] = useSearchParams();

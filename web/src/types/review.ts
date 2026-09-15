@@ -97,3 +97,6 @@ export const THREAT_LEVEL_LABELS: Record<ThreatLevel, string> = {
   [ThreatLevel.NEEDS_REVIEW]: "Needs review",
   [ThreatLevel.SECURITY_CONCERN]: "Security concern",
 };
+
+export type ArcVisionReview = ReviewSegment;
+export type FrigateReview = ArcVisionReview;

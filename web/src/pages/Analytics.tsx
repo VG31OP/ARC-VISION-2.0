@@ -3,9 +3,9 @@ import Heading from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { useAllowedCameras } from "@/hooks/use-allowed-cameras";
 import { cn } from "@/lib/utils";
-import { FrigateConfig } from "@/types/frigateConfig";
+import { ArcVisionConfig } from "@/types/arcvisionConfig";
 import { ReviewSegment } from "@/types/review";
-import { FrigateStats } from "@/types/stats";
+import { ArcVisionStats } from "@/types/stats";
 import {
   calculateCameraAnalytics,
   calculateDetectionDistribution,
@@ -25,8 +25,8 @@ import { LuMapPin, LuLayers, LuActivity, LuHardDrive, LuCpu } from "react-icons/
 import useSWR from "swr";
 
 export default function Analytics() {
-  const { data: config } = useSWR<FrigateConfig>("config");
-  const { data: stats } = useSWR<FrigateStats>("stats");
+  const { data: config } = useSWR<ArcVisionConfig>("config");
+  const { data: stats } = useSWR<ArcVisionStats>("stats");
   const allowedCameras = useAllowedCameras();
 
   const [timeRange, setTimeRange] = useState<"24h" | "7d" | "30d">("24h");
