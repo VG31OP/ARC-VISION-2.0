@@ -15,7 +15,7 @@ A few things to keep in mind:
 
 - Snapshots are saved per tracked object, so a camera with no detected objects produces no snapshots even if recording is enabled.
 - Snapshots and recordings are configured and retained independently. Enabling one does not enable the other.
-- Snapshots are accessible in the UI in the Explore pane, where they can also be submitted for model training when the Plus service is enabled.
+- Snapshots are accessible in the UI in the Explore pane.
 - To only save snapshots for objects that enter a specific zone, [see the security zone docs](./zones.md#restricting-snapshots-to-specific-zones).
 - Snapshots sent via MQTT are configured separately under the camera MQTT settings, not here.
 

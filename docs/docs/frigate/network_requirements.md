@@ -87,10 +87,6 @@ If your ARC VISION instance has restricted internet access, you can point model 
 
 These features connect to external services during normal operation and require internet whenever they are active.
 
-### Plus Model Service
-
-When a Plus API key is configured (via the `PLUS_API_KEY` environment variable), ARC VISION communicates with the Plus model library to download models, upload snapshots for training, submit annotations, and report false positives. Remove the API key to disable all Plus network activity.
-
 ### Generative AI
 
 When a Generative AI provider is configured, ARC VISION sends images and prompts to the configured provider for event descriptions, chat, and camera monitoring. Available providers:
@@ -154,7 +150,7 @@ To run ARC VISION in an air-gapped or offline environment:
 2. **Pre-download the training base weights**: If you plan to train custom classification models, set `TF_KERAS_MOBILENET_V2_WEIGHTS_URL` before training, then run one training job while online. Without this variable the base weights are cached outside `/config/` and are lost whenever the container is recreated, so a later training run will fail offline. If the machine never has internet access, copy the weights in manually as described below.
 3. **Disable version check**: Set `telemetry.version_check: false` in your configuration.
 4. **Block outbound model requests**: Set the `HF_HUB_OFFLINE=1` and `TRANSFORMERS_OFFLINE=1` environment variables to prevent HuggingFace and Transformers from attempting any network requests.
-5. **Avoid cloud features**: Do not configure the Plus model service, Generative AI providers that require internet, or cloud MQTT brokers.
+5. **Avoid cloud features**: Do not configure cloud Generative AI providers that require internet, or cloud MQTT brokers.
 6. **Use local model mirrors**: If limited internet is available, set the `HF_ENDPOINT`, `GITHUB_ENDPOINT`, `GITHUB_RAW_ENDPOINT`, and `TF_KERAS_MOBILENET_V2_WEIGHTS_URL` environment variables to point to local mirrors.
 
 After these steps, ARC VISION will operate with no outbound internet connections.

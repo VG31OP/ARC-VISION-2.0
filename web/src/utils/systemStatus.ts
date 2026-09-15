@@ -72,7 +72,7 @@ export function getSystemOperationalStatus(
         {
           id: "backend-unreachable",
           category: "REAL-TIME CONNECTION",
-          component: "Frigate Backend API",
+          component: "ARC VISION Core Engine",
           state: "CRITICAL",
           problem: "Backend service is not responding",
           details: "Failed to load runtime telemetry from /api/stats endpoint",

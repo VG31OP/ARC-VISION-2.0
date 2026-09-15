@@ -62,7 +62,7 @@ On desktop, the **Actions** menu (the film icon) collects the things you can do 
 - **Motion Search**: scan this camera's recordings for changes in a region you draw. This is the same tool documented under [Reviewing Motion](/usage/review#motion-search).
 - **Debug Replay** (admins): replay a recorded range back through ARC VISION's detection pipeline to see how it would be processed.
 
-You can also capture an instant snapshot of the current frame, and submit a frame for model training directly from the player (admins only, when the Plus service is enabled).
+You can also capture an instant snapshot of the current frame directly from the player.
 
 ## AI incident review summaries
 
