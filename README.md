@@ -215,54 +215,66 @@ Follow the on-screen initial setup wizard to configure your administrator creden
 
 ---
 
-## ⚙️ Configuration
+## ⚙️ In-Browser Configuration & Feature Management
 
-Create your initial configuration file at `config/config.yml`:
+ARC VISION is designed for **100% in-browser management**. You do **not** need to manually edit YAML files on disk to enable features or add cameras.
+
+### 1. Initial Launch
+Start the platform using Docker Compose. ARC VISION boots with a default starter configuration and launches the initial web onboarding wizard at:
+```text
+https://<your-server-ip>:8971   (or http://localhost:8971)
+```
+
+### 2. Enabling Features Directly in the Web UI
+From the left navigation menu, open **Settings (`/settings`)** to toggle and configure all features visually:
+
+| Feature / Module | In-Browser Settings Path | Configuration Capabilities |
+| :--- | :--- | :--- |
+| 🧑 **Face Recognition** | *Settings → Enrichments → Face Recognition* | Enable face matching, create face libraries, and manage recognized individuals in `/faces`. |
+| 🔍 **Semantic Search** | *Settings → Enrichments → Semantic Search* | Enable natural-language video search with model size selection (`small`, `base`, `large`). |
+| 🚗 **License Plate Recognition (LPR)** | *Settings → Enrichments → LPR* | Enable automated vehicle plate detection and log recognition events. |
+| 🛡️ **Security Zones & Masks** | *Settings → Cameras → [Camera Name] → Zones/Masks* | Draw interactive polygon zones, intrusion detection boundaries, and privacy masks directly on the live camera canvas. |
+| 🎥 **Camera Management** | *Settings → Cameras* | Add new IP cameras, test RTSP streams, configure detection resolution, and set frame rates. |
+| 💾 **Evidence & Recordings** | *Settings → Cameras → [Camera Name] → Record* | Toggle continuous recording, motion-triggered recording, and customize retention days. |
+| 📸 **Incident Snapshots** | *Settings → Cameras → [Camera Name] → Snapshots* | Configure high-resolution snapshot generation and retention rules. |
+| 🔊 **Audio Event Detection** | *Settings → Audio* | Enable real-time detection for screams, glass breaking, barking, and speech. |
+| 🦅 **Birdseye Composite Stream** | *Settings → UI & Display → Birdseye* | Enable auto-switching multi-camera overview stream. |
+| 📝 **Built-in Config Editor** | *Settings → Configuration Editor* | Monaco-based in-browser YAML editor with real-time validation, syntax highlighting, and one-click **Save & Restart**. |
+
+---
+
+### Starter Configuration (`config/config.yml`)
+
+The platform uses this minimal starter configuration to initialize the runtime and detectors so you can immediately begin configuring streams and enrichments in the browser:
 
 ```yaml
+version: 0.18-0
+
 mqtt:
-  enabled: true
-  host: mqtt.local
-  topic_prefix: frigate
+  enabled: false # Can be enabled under Settings -> MQTT
 
-# Global detector configuration
 detectors:
-  coral:
-    type: edgetpu
-    device: usb
+  ov:
+    type: openvino
+    device: CPU
 
-# Default camera settings
 cameras:
   front_entrance:
+    enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://viewer:{FRIGATE_RTSP_PASSWORD}@192.168.1.100:554/live
+        - path: rtsp://127.0.0.1:8554/front_entrance # Replace with your camera RTSP URL or add via Settings UI
           roles:
             - detect
             - record
     detect:
+      enabled: true
       width: 1280
       height: 720
       fps: 5
-    record:
-      enabled: true
-      retain:
-        days: 7
-        mode: all
-      events:
-        retain:
-          default: 14
-          mode: active_objects
-    snapshots:
-      enabled: true
-      retain:
-        default: 14
-    zones:
-      entry_walkway:
-        coordinates: 0.12,0.85,0.45,0.85,0.45,0.30,0.12,0.30
-        objects:
-          - person
-          - car
+    live:
+      streams:
+        Main: front_entrance
 ```
 
 ---
