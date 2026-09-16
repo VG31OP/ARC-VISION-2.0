@@ -18,7 +18,7 @@ import PolygonEditControls from "./PolygonEditControls";
 import { FaCheckCircle } from "react-icons/fa";
 import { MotionMaskFormValuesType, Polygon } from "@/types/canvas";
 import useSWR from "swr";
-import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { FrigateConfig } from "@/types/frigateConfig";
 import { flattenPoints, interpolatePoints } from "@/utils/canvasUtil";
 import axios from "axios";
 import { toast } from "sonner";
@@ -63,7 +63,7 @@ export default function MotionMaskEditPane({
   const { t } = useTranslation(["views/settings"]);
   const { getLocaleDocUrl } = useDocDomain();
   const { data: config, mutate: updateConfig } =
-    useSWR<ArcVisionConfig>("config");
+    useSWR<FrigateConfig>("config");
 
   const polygon = useMemo(() => {
     if (polygons && activePolygonIndex !== undefined) {
@@ -385,15 +385,6 @@ export default function MotionMaskEditPane({
           </div>
           <div className="mb-3 text-sm text-primary">
             {t("masksAndZones.motionMasks.polygonAreaTooLarge.tips")}
-            <Link
-              to={getLocaleDocUrl("/configuration/masks")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="my-3 block"
-            >
-              {t("readTheDocumentation", { ns: "common" })}{" "}
-              <LuExternalLink className="ml-2 inline-flex size-3" />
-            </Link>
           </div>
         </>
       )}

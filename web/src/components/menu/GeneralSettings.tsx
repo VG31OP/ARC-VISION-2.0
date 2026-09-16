@@ -63,15 +63,13 @@ import { TooltipPortal } from "@radix-ui/react-tooltip";
 import { cn } from "@/lib/utils";
 import useSWR from "swr";
 import RestartDialog from "../overlay/dialog/RestartDialog";
-import { AboutDialog } from "../overlay/AboutDialog";
-import { LuShieldCheck } from "react-icons/lu";
 
 import { useLanguage } from "@/context/language-provider";
 import { useIsAdmin } from "@/hooks/use-is-admin";
 import SetPasswordDialog from "../overlay/SetPasswordDialog";
 import { toast } from "sonner";
 import axios from "axios";
-import { ArcVisionConfig } from "@/types/arcvisionConfig";
+import { FrigateConfig } from "@/types/frigateConfig";
 import type { ProfilesApiResponse } from "@/types/profile";
 import { getProfileColor } from "@/utils/profileColors";
 import { Badge } from "@/components/ui/badge";
@@ -93,7 +91,7 @@ export default function GeneralSettings({
   const { t } = useTranslation(["common", "views/settings"]);
   const { getLocaleDocUrl } = useDocDomain();
   const { data: profile } = useSWR("profile");
-  const { data: config } = useSWR<ArcVisionConfig>("config");
+  const { data: config } = useSWR<FrigateConfig>("config");
   const { data: profilesData, mutate: updateProfiles } =
     useSWR<ProfilesApiResponse>("profiles");
   const logoutUrl = config?.proxy?.logout_url || "/api/logout";
@@ -109,10 +107,19 @@ export default function GeneralSettings({
   // languages
 
   const languages = useMemo(() => {
+    // Handle language keys that aren't directly used for translation key
+    const specialKeyMap: { [key: string]: string } = {
+      "nb-NO": "nb",
+      "yue-Hant": "yue",
+      "zh-CN": "zhCN",
+      "zh-Hant": "zhHant",
+      "pt-BR": "ptBR",
+    };
+
     return supportedLanguageKeys.map((key) => {
       return {
         code: key,
-        label: t(`menu.language.${key}`),
+        label: t(`menu.language.${specialKeyMap[key] || key}`),
       };
     });
   }, [t]);
@@ -158,7 +165,6 @@ export default function GeneralSettings({
   const { theme, colorScheme, setTheme, setColorScheme } = useTheme();
   const [restartDialogOpen, setRestartDialogOpen] = useState(false);
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
-  const [aboutDialogOpen, setAboutDialogOpen] = useState(false);
   const { send: sendRestart } = useRestart();
 
   const isAdmin = useIsAdmin();
@@ -749,16 +755,6 @@ export default function GeneralSettings({
                 <span>{t("menu.documentation.title")}</span>
               </MenuItem>
             </a>
-            <MenuItem
-              className={
-                isDesktop ? "cursor-pointer" : "flex items-center p-2 text-sm"
-              }
-              aria-label="About ARC VISION & Open Source Notices"
-              onClick={() => setAboutDialogOpen(true)}
-            >
-              <LuShieldCheck className="mr-2 size-4" />
-              <span>About & Open Source</span>
-            </MenuItem>
             {isAdmin && (
               <>
                 <DropdownMenuSeparator
@@ -796,10 +792,6 @@ export default function GeneralSettings({
         initialError={passwordError}
         username={profile?.username}
         isLoading={isPasswordLoading}
-      />
-      <AboutDialog
-        isOpen={aboutDialogOpen}
-        onClose={() => setAboutDialogOpen(false)}
       />
     </>
   );

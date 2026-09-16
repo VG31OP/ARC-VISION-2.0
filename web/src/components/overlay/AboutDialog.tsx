@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { BRAND } from "@/config/branding";
-import { LuShieldCheck, LuInfo, LuExternalLink } from "react-icons/lu";
+import { LuShieldCheck, LuInfo } from "react-icons/lu";
 
 interface AboutDialogProps {
   isOpen: boolean;
@@ -98,14 +98,6 @@ export const AboutDialog: React.FC<AboutDialogProps> = ({ isOpen, onClose }) => 
               <p className="text-muted-foreground text-[11px]">
                 Copyright &copy; 2019 Blake Blackshear. Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files...
               </p>
-              <a
-                href="https://github.com/blakeblackshear/frigate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-primary hover:underline text-[11px]"
-              >
-                Upstream Repository <LuExternalLink className="size-3" />
-              </a>
             </div>
 
             <div className="p-3 rounded border border-border bg-muted/20 space-y-1.5">
