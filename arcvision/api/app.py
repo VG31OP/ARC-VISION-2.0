@@ -682,7 +682,9 @@ def _config_set_in_memory(request: Request, body: AppConfigSetBody) -> JSONRespo
             updates = {k: ("" if v is None else v) for k, v in updates.items()}
             # Drop any field whose value is still a redaction sentinel
             updates = {
-                k: v for k, v in updates.items() if v not in REDACTED_CREDENTIAL_SENTINELS
+                k: v
+                for k, v in updates.items()
+                if not (isinstance(v, str) and v in REDACTED_CREDENTIAL_SENTINELS)
             }
 
         if not updates:

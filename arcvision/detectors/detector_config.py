@@ -126,8 +126,26 @@ class ModelConfig(BaseModel):
     def __init__(self, **config):
         super().__init__(**config)
 
+        model_path = config.get("path")
+        model_info_labelmap: dict[int, str] = {}
+        if model_path:
+            info_path = os.path.join(MODEL_CACHE_DIR, f"{model_path}.json")
+            if not os.path.exists(info_path):
+                info_path = os.path.join(MODEL_CACHE_DIR, model_path)
+            if os.path.exists(info_path):
+                try:
+                    with open(info_path, "r", encoding="utf-8") as f:
+                        info_data = json.load(f)
+                        if isinstance(info_data, dict) and "labelMap" in info_data:
+                            model_info_labelmap = {
+                                int(k): str(v) for k, v in info_data["labelMap"].items()
+                            }
+                except Exception:
+                    pass
+
         self._merged_labelmap = {
             **load_labels(config.get("labelmap_path", "/labelmap.txt")),
+            **model_info_labelmap,
             **config.get("labelmap", {}),
         }
         self._colormap = {}

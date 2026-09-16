@@ -1,3 +1,4 @@
+import sys
 from peewee import (
     BlobField,
     BooleanField,
@@ -11,6 +12,10 @@ from peewee import (
     TextField,
 )
 from playhouse.sqlite_ext import JSONField
+
+# Compatibility alias for historical database migrations that import from frigate.models
+sys.modules.setdefault("frigate.models", sys.modules[__name__])
+
 
 
 class Event(Model):

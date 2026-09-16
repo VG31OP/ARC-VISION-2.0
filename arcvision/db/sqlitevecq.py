@@ -35,8 +35,12 @@ class SqliteVecQueueDatabase(SqliteQueueDatabase):
         try:
             conn.load_extension(self.sqlite_vec_path)
         except conn.OperationalError:
-            logger.error("Unable to load the sqlite-vec extension")
-            self.load_vec_extension = False
+            try:
+                import sqlite_vec
+                sqlite_vec.load(conn)
+            except Exception:
+                logger.error("Unable to load the sqlite-vec extension")
+                self.load_vec_extension = False
         finally:
             conn.enable_load_extension(False)
 

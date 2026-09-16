@@ -1006,7 +1006,8 @@ class ArcVisionConfig(ArcVisionBaseModel):
 
         self.objects.parse_all_objects(self.cameras)
         self.model.create_colormap(sorted(self.objects.all_objects))
-        self.model.check_and_load_plus_model(self.plus_api)
+        if hasattr(self.model, "check_and_load_plus_model"):
+            self.model.check_and_load_plus_model(self.plus_api)
 
         # Check audio transcription and audio detection requirements
         if self.audio_transcription.enabled:

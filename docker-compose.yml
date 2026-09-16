@@ -1,5 +1,3 @@
-version: "3.9"
-
 # ==============================================================================
 # ARC VISION — Intelligent Surveillance Platform
 # Docker Compose Deployment Configuration
@@ -16,7 +14,11 @@ version: "3.9"
 services:
   arc-vision:
     container_name: arc-vision
-    image: ghcr.io/arc-vision/arc-vision:stable
+    image: arc-vision:latest
+    build:
+      context: .
+      dockerfile: docker/main/Dockerfile
+      target: arcvision
     restart: unless-stopped
     privileged: true
 
@@ -39,6 +41,9 @@ services:
       # Note: /media/arcvision is the canonical path. Legacy /media/frigate is
       # symlinked automatically inside the container for backward compatibility.
       - ./storage:/media/arcvision
+
+      # Live Python code mount for real-time development
+      - ./arcvision:/opt/arcvision/arcvision
       
       # Optional: In-memory tmpfs cache to reduce SSD write wear (1GB allocated)
       - type: tmpfs

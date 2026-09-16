@@ -9,6 +9,7 @@ from multiprocessing import Queue
 from multiprocessing.managers import DictProxy, SyncManager
 from multiprocessing.synchronize import Event as MpEvent
 from pathlib import Path
+import sys
 
 import psutil
 import uvicorn

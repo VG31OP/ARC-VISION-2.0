@@ -202,9 +202,13 @@ def _resolve_export(
         return MediaAuthResolution.UNRESOLVED_MEDIA, None
 
     filename = parts[1]
-    full_path = os.path.join(EXPORT_DIR, filename)
+    candidate_paths = [
+        os.path.join(EXPORT_DIR, filename),
+        f"/media/arcvision/exports/{filename}",
+        f"/media/frigate/exports/{filename}",
+    ]
     try:
-        export = Export.get(Export.video_path == full_path)
+        export = Export.get(Export.video_path << candidate_paths)
         return MediaAuthResolution.CAMERA, export.camera
     except DoesNotExist:
         return MediaAuthResolution.UNRESOLVED_MEDIA, None

@@ -341,6 +341,7 @@ CMD ["sleep", "infinity"]
 # ARC VISION web build
 # This should be architecture agnostic, so speed up the build on multiarch by not using QEMU.
 FROM --platform=$BUILDPLATFORM node:20 AS web-build
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 WORKDIR /work
 COPY web/package.json web/package-lock.json ./
@@ -356,16 +357,14 @@ FROM scratch AS rootfs
 
 WORKDIR /opt/arcvision/
 COPY arcvision arcvision/
-COPY frigate frigate/
 COPY migrations migrations/
 COPY --from=web-build /work/dist/ web/
-
-# Provide /opt/frigate compatibility symlink pointing to /opt/arcvision
-WORKDIR /
-RUN ln -sfn /opt/arcvision /opt/frigate
 
 # ARC VISION final container
 FROM deps AS arcvision
 
 WORKDIR /opt/arcvision/
 COPY --from=rootfs / /
+
+# Provide /opt/frigate compatibility symlink pointing to /opt/arcvision
+RUN ln -sfn /opt/arcvision /opt/frigate

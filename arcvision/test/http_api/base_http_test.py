@@ -24,6 +24,9 @@ from arcvision.test.const import TEST_DB, TEST_DB_CLEANUPS
 class AuthTestClient(TestClient):
     """TestClient that automatically adds auth headers to all requests."""
 
+    def __init__(self, *args, raise_server_exceptions: bool = False, **kwargs):
+        super().__init__(*args, raise_server_exceptions=raise_server_exceptions, **kwargs)
+
     def request(self, *args, **kwargs):
         # Add default auth headers if not already present
         headers = kwargs.get("headers") or {}
